@@ -17,6 +17,7 @@ btn.addEventListener('click', onLoadMoreBtnClick);
 let search = "";
 
 function onSubmitBtnClick(e) {
+  hits = 0;
   btn.classList.add("visually-hidden")
   e.preventDefault();
   search = input.value.trim();
@@ -35,7 +36,7 @@ function onSubmitBtnClick(e) {
         console.log(totalHits);
         Notiflix.Notify.success(`"Hooray! We found ${totalHits} images."`)
 
-        lightBox = new SimpleLightbox('.gallery a', {
+        simpleLightbox = new SimpleLightbox('.gallery a', {
           captionsData: 'alt',
           captionDelay: 250,
         }).refresh();
