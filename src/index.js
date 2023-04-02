@@ -36,7 +36,7 @@ function onSubmitBtnClick(e) {
         console.log(totalHits);
         Notiflix.Notify.success(`"Hooray! We found ${totalHits} images."`)
 
-        simpleLightbox = new SimpleLightbox('.gallery a', {
+       lightbox = new SimpleLightbox('.gallery a', {
           captionsData: 'alt',
           captionDelay: 250,
         }).refresh();
