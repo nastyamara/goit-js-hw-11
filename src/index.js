@@ -1,88 +1,105 @@
+
 import simpleLightbox from "simplelightbox";
+
+import "simplelightbox/dist/simple-lightbox.min.css";
 import Notiflix from "notiflix";
 import { getImage } from "./getImages";
+
+let pagecount = 1;
+let hits = 0;
+let totalHits = 0;
 
 const form = document.querySelector('form');
 const input = document.querySelector('input');
 const gallery = document.querySelector('.gallery');
+const btn = document.querySelector(".load-more");
 form.addEventListener('submit', onSubmitBtnClick);
+btn.addEventListener('click', onLoadMoreBtnClick);
 
-console.log(input)
+let search = "";
+
+console.dir(btn)
 
 //  return fetch("https://pixabay.com/api?key=34960745-b530bdf219145f51506c30578&q=cat").then(console.log(response.json())) 
 
 function onSubmitBtnClick(e) {
+  btn.classList.add("visually-hidden")
   e.preventDefault();
- 
-  let search = input.value.trim();
+  search = input.value.trim();
   gallery.innerHTML = "";
   console.log(search);
+  pagecount = 1;
   
     if(search !== "")
-{   getImage(search).then(images => { 
-  renderImageCard(images);
+{   getImage(search, pagecount).then(images => { 
+  renderImageCard(images.hits);
   console.log(images);
-  
-    }).catch((error) => {
+  totalHits = images.totalHits;
+  console.log(totalHits);
+
+    lightBox = new SimpleLightbox('.gallery a', {
+        captionsData: 'alt',
+        captionDelay: 250,
+    }).refresh();
+  pagecount += 1;
+  btn.classList.remove("visually-hidden");
+ }).catch((error) => {
+      console.log(error)
         Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
-gallery.innerHTML = "";
+   gallery.innerHTML = "";
+   search = "";
         });}
-    }
+}
+    
+function onLoadMoreBtnClick() {
+  console.log(search)
+  console.log(hits);
+try{ getImage(search, pagecount).then(images => {
+    renderImageCard(images.hits);
+  })
+    lightBox = new SimpleLightbox('.gallery a', {
+    captionsData: 'alt',
+    captionDelay: 250,
+  });
+  pagecount += 1;
+  if(totalHits<= hits){Notiflix.Notify.info("Hooray! We found totalHits images.")}}
+ catch(error){console.log(error)}
 
-// async function getImage(search) {
-   
-//   try {
-// //   const response =
-// //   await axios({
-// //   method: 'get',
-// //   url: 'https://pixabay.com/api/',
-// //   key: 34960745 - b530bdf219145f51506c30578,
-// //   q: search,
-// //   image_type: photo,
-// //   orientation: horizontal,
-// //   safesearch: true,
-// // })
-//     const response = await axios.get(`https://pixabay.com/api?key=34960745-b530bdf219145f51506c30578&q=cat`);
-//     // return response;
-//     console.log(response.json());
-//   } catch (error) {
-//     console.error(error);
-//   }
-// }
 
+}
 
 function renderImageCard(images) {
-  let imagesMarkup = images.map(({ name: { official }, flags: { svg } }) => {
+  
+  let imagesMarkup = images.map(({ webformatURL, largeImageURL, tags, likes, views, comments, downloads }) => {
+    hits += 1;
     return `<div class="photo-card">
-  <img src="" alt="" loading="lazy" />
+   <a class="gallery__link" href="${largeImageURL}">
+  <img src="${webformatURL}" alt="${tags}" loading="lazy"/>
+  </a>
   <div class="info">
     <p class="info-item">
-      <b>Likes</b>
+      <b>Likes: ${likes}</b>
     </p>
     <p class="info-item">
-      <b>Views</b>
+      <b>Views: ${views}</b>
     </p>
     <p class="info-item">
-      <b>Comments</b>
+      <b>Comments: ${comments}</b>
     </p>
     <p class="info-item">
-      <b>Downloads</b>
+      <b>Downloads: ${downloads}</b>
     </p>
   </div>
 </div>`
+  
   }).join(' ');
     
-  gallery.innerHTML = imagesMarkup;
+  gallery.insertAdjacentHTML('beforeend', imagesMarkup);
 }
 
 
-// const response =
-//  const response = axios.get('https://pixabay.com/api', {
-//   params: {
-//     key: '34960745-b530bdf219145f51506c30578',
-//     q: 'dog',
-//     image_type: 'photo',
-//     orientation: 'horizontal',
-//     safesearch: true,
-//   }
-// }).then((response) => console.log(response));
+
+
+
+
+
