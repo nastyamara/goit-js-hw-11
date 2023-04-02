@@ -19,6 +19,7 @@ img {
 
 .gallery{
   margin-top: 30px;
+  margin-bottom: 30px;
   display: flex;
   gap: 30px;
   flex-wrap: wrap;
@@ -42,9 +43,9 @@ img {
 }
 
 .load-more{
-  width: 150px;
-  height: 50px;
-  font-size: 24;
+  height: 36px;
+  width: 100px;
+  font-size: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -52,7 +53,30 @@ img {
   margin-right: auto;
   color: whitesmoke;
   border-radius: 8;
-background-color: green;
+background-color: rgb(70, 137, 70);
 cursor: pointer;
 border: none;
+}
+
+.form_container{
+  background-color: rgb(176, 204, 134);
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+input{
+  height: 36px;
+  width: 180px;
+  opacity: 70%;
+  border-radius: 8;
+  border: none;
+}
+form button{
+  background-color: rgb(70, 137, 70);
+  border: none;
+  height: 36px;
+  width: 68px;
+  border-radius: 8;
+  color: #fafafa;
 }
