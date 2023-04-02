@@ -30,25 +30,31 @@ function onSubmitBtnClick(e) {
   console.log(search);
   pagecount = 1;
   
-    if(search !== "")
-{   getImage(search, pagecount).then(images => { 
-  renderImageCard(images.hits);
-  console.log(images);
-  totalHits = images.totalHits;
-  console.log(totalHits);
+  if (search !== "") {
+    getImage(search, pagecount).then(images => {
+      renderImageCard(images.hits);
+      if (images.totalHits === 0) {
+        Notiflix.Notify.failure('Sorry, there are no images matching your search query.Please try again.');
+        return
+      } else if (images.totalHits >= 1) {
+        totalHits = images.totalHits;
+        console.log(totalHits);
 
-    lightBox = new SimpleLightbox('.gallery a', {
-        captionsData: 'alt',
-        captionDelay: 250,
-    }).refresh();
-  pagecount += 1;
-  btn.classList.remove("visually-hidden");
- }).catch((error) => {
+        lightBox = new SimpleLightbox('.gallery a', {
+          captionsData: 'alt',
+          captionDelay: 250,
+        }).refresh();
+        pagecount += 1;
+        btn.classList.remove("visually-hidden")
+      }
+    }).catch((error) => {
       console.log(error)
-        Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
-   gallery.innerHTML = "";
-   search = "";
-        });}
+      Notiflix.Notify.failure('Sorry, there are no images matching your search query. Please try again.')
+      gallery.innerHTML = "";
+      search = "";
+    });
+
+  }
 }
     
 function onLoadMoreBtnClick() {
