@@ -4,19 +4,24 @@ import { getImage } from "./getImages";
 import axios from 'axios';
 
 
-const btn = document.querySelector('button');
+const form = document.querySelector('form');
 const input = document.querySelector('input');
 const gallery = document.querySelector('.gallery');
-btn.addEventListener('submit', onSubmitBtnClick);
+form.addEventListener('submit', onSubmitBtnClick);
+
+console.log(input)
 
 //  return fetch("https://pixabay.com/api?key=34960745-b530bdf219145f51506c30578&q=cat").then(console.log(response.json())) 
 
 function onSubmitBtnClick(e) {
-  e.preventDefault;
+  e.preventDefault();
+ 
   let search = input.value.trim();
   gallery.innerHTML = "";
   console.log(search);
+  
   getImage(search).then((response) => console.log(response));
+  // fetch('https://pixabay.com/api/?key=34960745-b530bdf219145f51506c30578&q=cat').then((res)=> console.log(res))
 
     if(search !== "")
 {   getImage(search).then(images => { 
