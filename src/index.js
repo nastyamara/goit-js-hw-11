@@ -1,8 +1,6 @@
 import simpleLightbox from "simplelightbox";
 import Notiflix from "notiflix";
 import { getImage } from "./getImages";
-import axios from 'axios';
-
 
 const form = document.querySelector('form');
 const input = document.querySelector('input');
@@ -20,9 +18,6 @@ function onSubmitBtnClick(e) {
   gallery.innerHTML = "";
   console.log(search);
   
-  getImage(search).then((response) => console.log(response));
-  // fetch('https://pixabay.com/api/?key=34960745-b530bdf219145f51506c30578&q=cat').then((res)=> console.log(res))
-
     if(search !== "")
 {   getImage(search).then(images => { 
   renderImageCard(images);
