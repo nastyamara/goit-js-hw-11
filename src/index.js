@@ -1,6 +1,4 @@
-
 import simpleLightbox from "simplelightbox";
-
 import "simplelightbox/dist/simple-lightbox.min.css";
 import Notiflix from "notiflix";
 import { getImage } from "./getImages";
@@ -17,10 +15,6 @@ form.addEventListener('submit', onSubmitBtnClick);
 btn.addEventListener('click', onLoadMoreBtnClick);
 
 let search = "";
-
-console.dir(btn)
-
-//  return fetch("https://pixabay.com/api?key=34960745-b530bdf219145f51506c30578&q=cat").then(console.log(response.json())) 
 
 function onSubmitBtnClick(e) {
   btn.classList.add("visually-hidden")
@@ -39,6 +33,7 @@ function onSubmitBtnClick(e) {
       } else if (images.totalHits >= 1) {
         totalHits = images.totalHits;
         console.log(totalHits);
+        Notiflix.Notify.success(`"Hooray! We found ${totalHits} images."`)
 
         lightBox = new SimpleLightbox('.gallery a', {
           captionsData: 'alt',
@@ -68,10 +63,8 @@ try{ getImage(search, pagecount).then(images => {
     captionDelay: 250,
   });
   pagecount += 1;
-  if(totalHits<= hits){Notiflix.Notify.info("Hooray! We found totalHits images.")}}
+  if(totalHits<= hits){Notiflix.Notify.info("We're sorry, but you've reached the end of search results.")}}
  catch(error){console.log(error)}
-
-
 }
 
 function renderImageCard(images) {
@@ -97,15 +90,7 @@ function renderImageCard(images) {
     </p>
   </div>
 </div>`
-  
   }).join(' ');
-    
-  gallery.insertAdjacentHTML('beforeend', imagesMarkup);
+    gallery.insertAdjacentHTML('beforeend', imagesMarkup);
 }
-
-
-
-
-
-
 
