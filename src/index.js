@@ -36,7 +36,7 @@ function onSubmitBtnClick(e) {
         console.log(totalHits);
         Notiflix.Notify.success(`"Hooray! We found ${totalHits} images."`)
 
-       lightbox = new SimpleLightbox('.gallery a', {
+       const simpleLightbox = new SimpleLightbox('.gallery a', {
           captionsData: 'alt',
           captionDelay: 250,
         }).refresh();
@@ -59,7 +59,7 @@ function onLoadMoreBtnClick() {
 try{ getImage(search, pagecount).then(images => {
     renderImageCard(images.hits);
   })
-    lightBox = new SimpleLightbox('.gallery a', {
+    const simpleLightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
   });
