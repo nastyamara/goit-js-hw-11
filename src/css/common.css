@@ -8,7 +8,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #fafafa;
-  color: #212121;
+  color: #295a41;
   line-height: 1.5;
 }
 
@@ -71,6 +71,7 @@ input{
   opacity: 70%;
   border-radius: 8;
   border: none;
+  margin-right: 10px;
 }
 form button{
   background-color: rgb(70, 137, 70);
@@ -79,4 +80,5 @@ form button{
   width: 68px;
   border-radius: 8;
   color: #fafafa;
+  align-self: baseline;
 }
